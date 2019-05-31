@@ -1,0 +1,6 @@
+Xvesa -br -screen 1024x768x32 -shadow -2button -mouse /dev/input/mice,5 -nolisten tcp -I &
+export XPID=$!
+waitforX || ! echo failed in waitforX || exit
+x11vnc -forever >/dev/null &
+/opt/mouse.sh > /dev/null 2>&1 &
+aterm -geometry 218x72 -bg black -fg grey -e /opt/rdp.sh

@@ -1,0 +1,23 @@
+DEFAULT vesamenu.c32
+PROMPT 0
+
+menu title PXE RDP
+
+MENU AUTOBOOT Starting Local System in # seconds
+
+LABEL tinycore RDP
+	menu default
+	timeout 40
+	kernel linux/tinycore/vmlinuz
+	initrd http://192.168.3.100/tftpboot/linux/tinycore/tc.gz 
+	append multivt httplist=192.168.3.100:80/tftpboot/linux/tinycore/cde/xvesa.lst XVESA=1400x1050x32 myscript=192.168.3.100/tftpboot/linux/tinycore/scripts/opt/myscript.sh 
+
+LABEL tinycore aterm
+	kernel linux/tinycore/vmlinuz
+	initrd http://192.168.3.100/tftpboot/linux/tinycore/tc.gz 
+	append httplist=192.168.3.100:80/tftpboot/linux/tinycore/cde/xvesa.lst pause desktop=aterm
+	
+LABEL local
+	MENU LABEL ^Local boot
+	# 128 means boot from hard drive
+	localboot 128
